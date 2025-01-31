@@ -1,12 +1,17 @@
 <script lang="ts">
   import { buttonStyles } from '@/ui/styles';
-  export let notFoundTerm: string;
   import { PackageOpen, ArrowUpRight } from 'lucide-svelte';
+
+  interface NotFoundProps {
+    notFoundTerm: string;
+  }
+
+  let { notFoundTerm }: NotFoundProps = $props();
 </script>
 
 <div class="mt-6 flex w-full flex-col items-center justify-center text-gray-600 dark:text-gray-400">
   <PackageOpen size={40} class="mb-4" />
-  <p class="text-xl mb-1 font-medium">Couldn't find the Icon</p>
+  <p class="mb-1 text-xl font-medium">Couldn't find the Icon</p>
   <p class="text-md mb-4 font-mono">"{notFoundTerm}"</p>
   <div class="flex items-center space-x-1">
     <a

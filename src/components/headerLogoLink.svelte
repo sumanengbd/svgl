@@ -1,10 +1,10 @@
 <script lang="ts">
   import { toast } from 'svelte-sonner';
+  import { CopyIcon } from 'lucide-svelte';
 
   import * as ContextMenu from '@/ui/context-menu';
-  import { CopyIcon } from 'lucide-svelte';
-  import Logo from './icons/logo.svelte';
-  import ReactIcon from './icons/reactIcon.svelte';
+  import Logo from '@/components/icons/logo.svelte';
+  import ReactIcon from '@/components/icons/reactIcon.svelte';
 
   import { clipboard } from '@/utils/clipboard';
   import { getSvgContent } from '@/utils/getSvgContent';
@@ -50,9 +50,9 @@
 
 <ContextMenu.Root>
   <ContextMenu.Trigger class="flex items-center space-x-2">
-    <a href="/" aria-label="Go to the SVGL v4.1 home page">
+    <a href="/" aria-label="Go to the SVGL home page">
       <div class="flex items-center space-x-2 opacity-100 transition-opacity hover:opacity-80">
-        <svelte:component this={Logo} />
+        <Logo iconSize={30} />
         <span class="hidden text-[19px] font-medium tracking-wide md:block">svgl</span>
         <p class="hidden font-mono tracking-tight text-neutral-400 md:block">4.4</p>
       </div>

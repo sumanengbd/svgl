@@ -6,33 +6,43 @@
 
   import * as Popover from '@/ui/popover';
   import * as Tabs from '@/ui/tabs';
+  import { buttonStyles } from '@/ui/styles';
 
   // Utils:
   import { getSvgContent } from '@/utils/getSvgContent';
   import { getReactComponentCode } from '@/utils/getReactComponentCode';
   import { clipboard } from '@/utils/clipboard';
   import { copyToClipboard as figmaCopyToClipboard } from '@/figma/copy-to-clipboard';
-  import { buttonStyles } from '@/ui/styles';
   import { cn } from '@/utils/cn';
   import { componentTemplate } from '@/utils/componentTemplate';
   import { generateAngularComponent } from '@/utils/generateAngularComponent';
 
   //Icons:
-  import ReactIcon from './icons/reactIcon.svelte';
-  import VueIcon from './icons/vueIcon.svelte';
-  import SvelteIcon from './icons/svelteIcon.svelte';
-  import AngularIcon from './icons/angularIcon.svelte';
+  import ReactIcon from '@/components/icons/reactIcon.svelte';
+  import VueIcon from '@/components/icons/vueIcon.svelte';
+  import SvelteIcon from '@/components/icons/svelteIcon.svelte';
+  import AngularIcon from '@/components/icons/angularIcon.svelte';
 
   // Props:
-  export let iconSize = 24;
-  export let iconStroke = 2;
-  export let isInFigma = false;
-  export let isWordmarkSvg = false;
-  export let svgInfo: iSVG;
+  interface CopySVG {
+    iconSize?: number;
+    iconStroke?: number;
+    isInFigma?: boolean;
+    isWordmarkSvg?: boolean;
+    svgInfo: iSVG;
+  }
+
+  let {
+    iconSize = 24,
+    iconStroke = 2,
+    isInFigma = false,
+    isWordmarkSvg = false,
+    svgInfo
+  }: CopySVG = $props();
 
   // Variables:
-  let optionsOpen = false;
-  let isLoading = false;
+  let optionsOpen = $state<boolean>(false);
+  let isLoading = $state<boolean>(false);
 
   const getSvgUrl = () => {
     let svgUrlToCopy;
@@ -221,7 +231,7 @@
           <button
             class={cn(buttonStyles, 'w-full rounded-md')}
             title={isWordmarkSvg ? 'Copy wordmark SVG to clipboard' : 'Copy SVG to clipboard'}
-            on:click={() => copyToClipboard()}
+            onclick={() => copyToClipboard()}
           >
             <ClipboardIcon size={16} strokeWidth={2} />
             <span>Copy SVG</span>
@@ -234,7 +244,7 @@
             class={cn(buttonStyles, 'w-full rounded-md')}
             title="Copy as React component"
             disabled={isLoading}
-            on:click={() => convertSvgReactComponent(true)}
+            onclick={() => convertSvgReactComponent(true)}
           >
             <ReactIcon iconSize={18} color="#2563eb" />
             <span>Copy TSX</span>
@@ -243,7 +253,7 @@
             class={cn(buttonStyles, 'w-full rounded-md')}
             title="Copy as React component"
             disabled={isLoading}
-            on:click={() => convertSvgReactComponent(false)}
+            onclick={() => convertSvgReactComponent(false)}
           >
             <ReactIcon iconSize={18} color="#60a5fa" />
             <span>Copy JSX</span>
@@ -256,7 +266,7 @@
             class={cn(buttonStyles, 'w-full rounded-md')}
             title="Copy as Svelte component"
             disabled={isLoading}
-            on:click={() => copySvgComponent(false, 'Svelte')}
+            onclick={() => copySvgComponent(false, 'Svelte')}
           >
             <SvelteIcon iconSize={18} />
             <span>Copy JS</span>
@@ -266,7 +276,7 @@
             class={cn(buttonStyles, 'w-full rounded-md')}
             title="Copy as Svelte component"
             disabled={isLoading}
-            on:click={() => copySvgComponent(true, 'Svelte')}
+            onclick={() => copySvgComponent(true, 'Svelte')}
           >
             <SvelteIcon iconSize={18} />
             <span>Copy TS</span>
@@ -279,7 +289,7 @@
             class={cn(buttonStyles, 'w-full rounded-md')}
             title="Copy as Vue component"
             disabled={isLoading}
-            on:click={() => copySvgComponent(false, 'Vue')}
+            onclick={() => copySvgComponent(false, 'Vue')}
           >
             <VueIcon iconSize={18} />
             <span>Copy JS</span>
@@ -288,7 +298,7 @@
             class={cn(buttonStyles, 'w-full rounded-md')}
             title="Copy as Vue component"
             disabled={isLoading}
-            on:click={() => copySvgComponent(true, 'Vue')}
+            onclick={() => copySvgComponent(true, 'Vue')}
           >
             <VueIcon iconSize={18} />
             <span>Copy TS</span>
@@ -301,7 +311,7 @@
             class={cn(buttonStyles, 'w-full rounded-md')}
             title="Copy as Standalone Component"
             disabled={isLoading}
-            on:click={() => convertSvgAngularComponent()}
+            onclick={() => convertSvgAngularComponent()}
           >
             <AngularIcon iconSize={18} />
             <span>Copy Standalone Component</span>

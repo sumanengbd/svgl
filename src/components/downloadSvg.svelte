@@ -1,10 +1,11 @@
 <script lang="ts">
   import type { iSVG } from '@/types/svg';
+
   import JSZip from 'jszip';
   import download from 'downloadjs';
   import { toast } from 'svelte-sonner';
   import { DownloadIcon } from 'lucide-svelte';
-  import { getSvgContent } from '@/utils/getSvgContent';
+
   import {
     Dialog,
     DialogTrigger,
@@ -14,11 +15,17 @@
     DialogDescription
   } from '@/ui/dialog';
   import { buttonStyles } from '@/ui/styles';
+
   import { cn } from '@/utils/cn';
+  import { getSvgContent } from '@/utils/getSvgContent';
 
   // Props:
-  export let svgInfo: iSVG;
-  export let isDarkTheme: () => boolean;
+  interface DownloadSVGProps {
+    svgInfo: iSVG;
+    isDarkTheme: () => boolean;
+  }
+
+  let { svgInfo, isDarkTheme }: DownloadSVGProps = $props();
 
   // Shared:
   let iconStroke = 1.8;
@@ -88,7 +95,7 @@
   <button
     title="Download Light & Dark variants"
     class={mainDownloadStyles}
-    on:click={() => {
+    onclick={() => {
       if (typeof svgInfo.route === 'string') {
         downloadSvg(svgInfo.route);
         return;
@@ -110,8 +117,8 @@
 
       <div
         class={cn(
-          'flex flex-col space-y-2 mt-4 h-full',
-          'md:space-y-0 md:flex-row md:space-x-2 md:items-center md:justify-center'
+          'mt-4 flex h-full flex-col space-y-2',
+          'md:flex-row md:items-center md:justify-center md:space-x-2 md:space-y-0'
         )}
       >
         {#if typeof svgInfo.route === 'string'}
@@ -119,12 +126,12 @@
             <img
               src={isDarkTheme() ? svgInfo.route : svgInfo.route}
               alt={svgInfo.title}
-              class="h-8 my-4"
+              class="my-4 h-8"
             />
             <button
               title="Download logo"
               class={buttonStyles}
-              on:click={() => {
+              onclick={() => {
                 if (typeof svgInfo.route === 'string') {
                   downloadSvg(svgInfo.route);
                   return;
@@ -140,12 +147,12 @@
             <img
               src={isDarkTheme() ? svgInfo.route.dark : svgInfo.route.light}
               alt={svgInfo.title}
-              class="h-10 my-4"
+              class="my-4 h-10"
             />
             <button
               title="Logo with light & dark variants"
               class={buttonStyles}
-              on:click={() => {
+              onclick={() => {
                 if (typeof svgInfo.route !== 'string') {
                   downloadAllVariants({
                     lightRoute: svgInfo.route.light,
@@ -161,7 +168,7 @@
             <button
               title="Download light variant"
               class={buttonStyles}
-              on:click={() => {
+              onclick={() => {
                 if (typeof svgInfo.route !== 'string') {
                   downloadSvg(svgInfo.route.light);
                   return;
@@ -175,7 +182,7 @@
             <button
               title="Download dark variant"
               class={buttonStyles}
-              on:click={() => {
+              onclick={() => {
                 if (typeof svgInfo.route !== 'string') {
                   downloadSvg(svgInfo.route.dark);
                   return;
@@ -193,12 +200,12 @@
             <img
               src={isDarkTheme() ? svgInfo.wordmark : svgInfo.wordmark}
               alt={svgInfo.title}
-              class="h-8 my-4"
+              class="my-4 h-8"
             />
             <button
               title="Download Wordmark logo"
               class={buttonStyles}
-              on:click={() => {
+              onclick={() => {
                 if (typeof svgInfo.wordmark === 'string') {
                   downloadSvg(svgInfo.wordmark);
                   return;
@@ -216,12 +223,12 @@
             <img
               src={isDarkTheme() ? svgInfo.wordmark.dark : svgInfo.wordmark.light}
               alt={svgInfo.title}
-              class="h-10 my-4"
+              class="my-4 h-10"
             />
             <button
               title="Download Wordmark light variant"
               class={buttonStyles}
-              on:click={() => {
+              onclick={() => {
                 if (typeof svgInfo.wordmark !== 'string') {
                   downloadAllVariants({
                     lightRoute: svgInfo.wordmark?.light || '',
@@ -239,7 +246,7 @@
             <button
               title="Download Wordmark light variant"
               class={buttonStyles}
-              on:click={() => {
+              onclick={() => {
                 if (typeof svgInfo.wordmark !== 'string') {
                   downloadSvg(svgInfo.wordmark?.light);
                   return;
@@ -253,7 +260,7 @@
             <button
               title="Download Wordmark dark variant"
               class={buttonStyles}
-              on:click={() => {
+              onclick={() => {
                 if (typeof svgInfo.wordmark !== 'string') {
                   downloadSvg(svgInfo.wordmark?.dark);
                   return;
