@@ -1,5 +1,11 @@
+<script lang="ts">
+  import type { IconProps } from '@/types/icons';
+  let { iconSize }: IconProps = $props();
+</script>
+
 <svg
-  width="30"
+  width={iconSize || 30}
+  height={iconSize || 30}
   name="SVGL Logo"
   viewBox="0 0 512 512"
   fill="none"
