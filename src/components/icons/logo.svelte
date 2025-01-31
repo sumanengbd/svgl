@@ -4,8 +4,8 @@
 </script>
 
 <svg
-  width={iconSize || 30}
-  height={iconSize || 30}
+  width={iconSize}
+  height={iconSize}
   name="SVGL Logo"
   viewBox="0 0 512 512"
   fill="none"
