@@ -4,7 +4,7 @@
   import { buttonStyles } from '@/ui/styles';
   import { cn } from '@/utils/cn';
 
-  let warning = false;
+  let warning = $state(false);
   let warningName = 'svgl_warn_message';
   const initialValue = browser ? window.localStorage.getItem(warningName) : true;
 </script>
@@ -33,7 +33,7 @@
     </div>
     <button
       class={cn(buttonStyles, 'h-10 text-sm')}
-      on:click={() => {
+      onclick={() => {
         localStorage.setItem(warningName, 'true');
         warning = true;
       }}

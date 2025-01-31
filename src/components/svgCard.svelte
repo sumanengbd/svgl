@@ -28,22 +28,26 @@
   import { insertSVG as figmaInsertSVG } from '@/figma/insert-svg';
 
   // Props:
-  export let svgInfo: iSVG;
-  export let searchTerm: string;
+  interface Props {
+    svgInfo: iSVG;
+    searchTerm: string;
+  }
 
-  let isInFigma = false;
+  let { svgInfo, searchTerm }: Props = $props();
+
+  let isInFigma = $state(false);
   onMount(() => {
     const searchParams = new URLSearchParams(window.location.search);
     isInFigma = searchParams.get('figma') === '1';
   });
 
   // Wordmark SVG:
-  let wordmarkSvg = false;
-  $: {
+  let wordmarkSvg = $state(false);
+  $effect(() => {
     if (searchTerm) {
       wordmarkSvg = false;
     }
-  }
+  });
 
   const insertSVG = async (url?: string) => {
     const content = (await getSvgContent(url)) as string;
@@ -56,7 +60,7 @@
 
   // Max Categories:
   let maxVisibleCategories = 1;
-  let moreTagsOptions = false;
+  let moreTagsOptions = $state(false);
 
   // Global Styles:
   const globalImageStyles = 'mb-4 mt-2 h-10 select-none pointer-events-none';
@@ -156,7 +160,7 @@
     {#if isInFigma}
       <button
         title="Insert to figma"
-        on:click={() => {
+        onclick={() => {
           const svgHasTheme = typeof svgInfo.route !== 'string';
 
           if (!svgHasTheme) {
@@ -210,7 +214,7 @@
     {#if svgInfo.wordmark !== undefined}
       <button
         title={wordmarkSvg ? 'Show logo SVG' : 'Show wordmark SVG'}
-        on:click={() => {
+        onclick={() => {
           wordmarkSvg = !wordmarkSvg;
         }}
         class={btnStyles}
