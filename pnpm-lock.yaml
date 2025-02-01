@@ -26,9 +26,6 @@ importers:
       '@upstash/redis':
         specifier: 1.34.3
         version: 1.34.3
-      clsx:
-        specifier: 2.1.1
-        version: 2.1.1
       downloadjs:
         specifier: 1.4.7
         version: 1.4.7
@@ -62,12 +59,6 @@ importers:
       svelte-sonner:
         specifier: 0.3.28
         version: 0.3.28(svelte@5.19.6)
-      tailwind-merge:
-        specifier: 3.0.1
-        version: 3.0.1
-      tailwind-variants:
-        specifier: 0.3.1
-        version: 0.3.1(tailwindcss@3.4.17)
     devDependencies:
       '@eslint/compat':
         specifier: 1.2.5
@@ -102,6 +93,9 @@ importers:
       bits-ui:
         specifier: 0.22.0
         version: 0.22.0(svelte@5.19.6)
+      clsx:
+        specifier: 2.1.1
+        version: 2.1.1
       concurrently:
         specifier: 9.1.2
         version: 9.1.2
@@ -144,9 +138,18 @@ importers:
       sveltekit-search-params:
         specifier: 3.0.0
         version: 3.0.0(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.6)(vite@6.0.11(@types/node@22.12.0)(jiti@1.21.7)(yaml@2.7.0)))(svelte@5.19.6)(vite@6.0.11(@types/node@22.12.0)(jiti@1.21.7)(yaml@2.7.0)))(svelte@5.19.6)(vite@6.0.11(@types/node@22.12.0)(jiti@1.21.7)(yaml@2.7.0))
+      tailwind-merge:
+        specifier: 3.0.1
+        version: 3.0.1
+      tailwind-variants:
+        specifier: 0.3.1
+        version: 0.3.1(tailwindcss@3.4.17)
       tailwindcss:
         specifier: 3.4.17
         version: 3.4.17
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.17)
       typescript:
         specifier: 5.7.3
         version: 5.7.3
@@ -2316,6 +2319,11 @@ packages:
     engines: {node: '>=16.x', pnpm: '>=7.x'}
     peerDependencies:
       tailwindcss: '*'
+
+  tailwindcss-animate@1.0.7:
+    resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
 
   tailwindcss@3.4.17:
     resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
@@ -4928,6 +4936,10 @@ snapshots:
   tailwind-variants@0.3.1(tailwindcss@3.4.17):
     dependencies:
       tailwind-merge: 2.5.4
+      tailwindcss: 3.4.17
+
+  tailwindcss-animate@1.0.7(tailwindcss@3.4.17):
+    dependencies:
       tailwindcss: 3.4.17
 
   tailwindcss@3.4.17:
