@@ -7,13 +7,16 @@
   import ReactIcon from '@/components/icons/reactIcon.svelte';
 
   import { clipboard } from '@/utils/clipboard';
-  import { getSvgContent } from '@/utils/getSvgContent';
-  import { getReactComponentCode } from '@/utils/getReactComponentCode';
+
+  import { getSource } from '@/templates/getSource';
+  import { getReactCode } from '@/templates/getReactCode';
 
   const logoUrl = '/library/svgl.svg';
 
   const copyToClipboard = async () => {
-    const content = await getSvgContent(logoUrl);
+    const content = await getSource({
+      url: logoUrl
+    });
     await clipboard(content);
     toast.success('Copied to clipboard', {
       description: `Svgl - Library`
@@ -26,9 +29,11 @@
     isLoading = true;
 
     const title = 'svgl';
-    const content = await getSvgContent(logoUrl);
+    const content = await getSource({
+      url: logoUrl
+    });
     const dataComponent = { code: content, typescript: tsx, name: title };
-    const { data, error } = await getReactComponentCode(dataComponent);
+    const { data, error } = await getReactCode(dataComponent);
 
     if (error || !data) {
       toast.error('Failed to fetch React component', {
