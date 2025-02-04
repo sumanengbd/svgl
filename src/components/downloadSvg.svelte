@@ -17,7 +17,7 @@
   import { buttonStyles } from '@/ui/styles';
 
   import { cn } from '@/utils/cn';
-  import { getSvgContent } from '@/utils/getSvgContent';
+  import { getSource } from '@/templates/getSource';
 
   // Props:
   interface DownloadSVGProps {
@@ -60,8 +60,12 @@
   }) => {
     const zip = new JSZip();
 
-    const lightSvg = await getSvgContent(lightRoute);
-    const darkSvg = await getSvgContent(darkRoute);
+    const lightSvg = await getSource({
+      url: lightRoute
+    });
+    const darkSvg = await getSource({
+      url: darkRoute
+    });
 
     if (isWordmark) {
       zip.file(`${svgInfo.title}_wordmark_light.svg`, lightSvg);
