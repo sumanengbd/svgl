@@ -1,23 +1,18 @@
 <script lang="ts">
   import type { LayoutServerData } from './$types';
-  export let data: LayoutServerData;
+  import type { Snippet } from 'svelte';
+  import { page } from '$app/state';
 
   // Global styles:
-  import '../app.css';
+  import '@/styles/globals.css';
   import { cn } from '@/utils/cn';
   import { ModeWatcher, mode } from 'mode-watcher';
+
   import { sidebarCategoryCountStyles } from '@/ui/styles';
   import { sidebarItemStyles } from '@/ui/styles';
 
   // Get categories:
   import { svgs } from '@/data/svgs';
-  const categories = getCategories();
-
-  // Get category counts:
-  let categoryCounts: Record<string, number> = {};
-  categories.forEach((category) => {
-    categoryCounts[category] = svgs.filter((svg) => svg.category.includes(category)).length;
-  });
 
   // Toaster:
   import { Toaster } from 'svelte-sonner';
@@ -29,10 +24,25 @@
   // Layout:
   import Navbar from '@/components/navbar.svelte';
   import { getCategories } from '@/data';
+
+  interface Props {
+    data: LayoutServerData;
+    children?: Snippet;
+  }
+
+  const categories = getCategories();
+
+  // Get category counts:
+  let categoryCounts: Record<string, number> = $state({});
+  categories.forEach((category) => {
+    categoryCounts[category] = svgs.filter((svg) => svg.category.includes(category)).length;
+  });
+
+  let { children }: Props = $props();
 </script>
 
 <ModeWatcher />
-<Navbar currentPath={data.pathname} />
+<Navbar currentPath={page.url.pathname} />
 <main>
   <aside
     class={cn(
@@ -51,7 +61,7 @@
           href="/"
           class={cn(
             sidebarItemStyles,
-            data.pathname === '/'
+            page.url.pathname === '/'
               ? 'bg-neutral-200 font-medium text-dark dark:bg-neutral-700/30 dark:text-white'
               : ''
           )}
@@ -64,7 +74,7 @@
             data-sveltekit-preload-data
             class={cn(
               sidebarItemStyles,
-              data.pathname === `/directory/${category.toLowerCase()}`
+              page.url.pathname === `/directory/${category.toLowerCase()}`
                 ? 'bg-neutral-200 font-medium text-dark dark:bg-neutral-700/30 dark:text-white'
                 : ''
             )}
@@ -73,7 +83,7 @@
             <span
               class={cn(
                 sidebarCategoryCountStyles,
-                data.pathname === `/directory/${category.toLowerCase()}`
+                page.url.pathname === `/directory/${category.toLowerCase()}`
                   ? 'border-neutral-300 dark:border-neutral-700'
                   : '',
                 'hidden font-mono text-xs md:inline'
@@ -86,8 +96,8 @@
   </aside>
   <div class="ml-0 pb-6 md:ml-56">
     <Warning />
-    <Transition pathname={data.pathname}>
-      <slot />
+    <Transition pathname={page.url.pathname}>
+      {@render children?.()}
     </Transition>
     <Toaster
       position="bottom-right"

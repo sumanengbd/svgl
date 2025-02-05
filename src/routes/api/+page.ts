@@ -9,6 +9,6 @@ export async function load() {
       meta: post.metadata
     };
   } catch (e) {
-    throw error(404, `Could not find this page`);
+    throw error(404, `⚠️ +page.ts: Could not find this page -  ${e}`);
   }
 }

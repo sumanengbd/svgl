@@ -1,6 +1,7 @@
 <script>
   import { cn } from '@/utils/cn';
-  export let data;
+  /** @type {{data: any}} */
+  let { data } = $props();
 </script>
 
 <svelte:head>
@@ -23,7 +24,7 @@
       <span class="relative inline-block overflow-hidden rounded-full p-[1px] shadow-sm">
         <span
           class="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#f4f4f5_0%,#f4f4f5_50%,#737373_100%)] dark:bg-[conic-gradient(from_90deg_at_50%_50%,#121212_0%,#121212_50%,#737373_100%)]"
-        />
+        ></span>
         <div
           class="inline-flex h-full w-full cursor-default items-center justify-center rounded-full border border-neutral-100 bg-neutral-100 px-3 py-1 font-mono text-xs font-medium backdrop-blur-3xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-white"
         >
@@ -45,5 +46,5 @@
     'prose-pre:m-0 prose-pre:border prose-pre:border-neutral-200 dark:prose-pre:border dark:prose-pre:border-neutral-800/65'
   )}
 >
-  <svelte:component this={data.content} />
+  <data.content />
 </article>
