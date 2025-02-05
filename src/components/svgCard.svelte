@@ -3,7 +3,7 @@
 
   // Utils:
   import { cn } from '@/utils/cn';
-  import { getSvgContent } from '@/utils/getSvgContent';
+  import { getSource } from '@/templates/getSource';
 
   // Icons:
   import {
@@ -50,7 +50,9 @@
   });
 
   const insertSVG = async (url?: string) => {
-    const content = (await getSvgContent(url)) as string;
+    const content = (await getSource({
+      url
+    })) as string;
     figmaInsertSVG(content);
   };
 
