@@ -52,13 +52,16 @@
 <Container>
   <Search
     bind:searchTerm
-    on:input={searchSvgs}
-    clearSearch={() => clearSearch()}
     placeholder={`Search ${filteredSvgs.length} ${category} logos...`}
+    onChange={(value) => {
+      searchParam.set(value);
+      searchTerm = value;
+      searchSvgs();
+    }}
   />
   <Grid>
     {#each filteredSvgs as svg}
-      <SvgCard svgInfo={svg} />
+      <SvgCard svgInfo={svg} {searchTerm} />
     {/each}
   </Grid>
   {#if filteredSvgs.length === 0}
