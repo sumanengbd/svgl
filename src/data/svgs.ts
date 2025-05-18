@@ -3615,5 +3615,12 @@ export const svgs: iSVG[] = [
     route: '/library/terraform.svg',
     url: 'https://terraform.io',
     brandUrl: 'https://brand.hashicorp.com'
+  },
+  {
+    title: 'WPPOOL',
+    category: ['Software'],
+    route: '/library/wppool.svg',
+    url: 'https://wppool.dev',
+    brandUrl: 'https://wppool.dev'
   }
 ];
